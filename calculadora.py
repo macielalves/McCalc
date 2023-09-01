@@ -27,9 +27,13 @@ class CalcPrompt:
     x: int | float | complex = None
     y: int | float | complex = None
     resultado = None
-    MAIN_MENU = f'''______________
-####_Calc_####
-
+    MAIN_MENU = f'''
+  _
+ / _
+| |
+| |
+| |__
+ \____/
 [0] {m_exit}  
 [1] {m_sum}
 [2] {m_sub}
