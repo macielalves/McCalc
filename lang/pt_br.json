@@ -1,0 +1,10 @@
+{
+    "m_exit": "Sair",
+    "m_sum": "Soma",
+    "m_sub": "Subtração",
+    "m_mult": "Multiplicação",
+    "m_div": "Divisão",
+    "m_exp": "Exponencial",
+    "m_sqrt": "Raiz Quadrada",
+    "m_percent": "Porcentagem"
+}
