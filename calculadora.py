@@ -151,28 +151,28 @@ class PyCalc:
             match self.op:
                 case '+':
                     self.result = self.sum(self.x, self.y)
-                    #self._print_result()
+                    self._print_result()
                 case '-':
                     self.result = self.sub(self.x, self.y)
-                    #self._print_result()
+                    self._print_result()
                 case '*':
                     self.result = self.mult(self.x, self.y)
-                    #self._print_result()
+                    self._print_result()
                 case '/':
                     self.result = self.div(self.x, self.y)
-                    #self._print_result()
+                    self._print_result()
                 case '**':
                     self.result = self.exp(self.x, self.y)
-                    #self._print_result()
+                    self._print_result()
                 case '^':
                     self.result = self.exp(self.x, self.y)
-                    #self._print_result()
+                    self._print_result()
                 case '%':
                     self.result = self.percent(self.x)
-                    #self._print_result()
+                    self._print_result()
                 case 'R':
                     self.result = self.sqrt(self.x)
-                    #self._print_result()
+                    self._print_result()
 
             self.x = self.result
             self.y = None
