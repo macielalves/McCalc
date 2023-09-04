@@ -1,9 +1,9 @@
 import json
 import os
-import term_calc
+from .term_calc import DIR_MENU_LANG
 
 
-lang_file = term_calc.DIR_MENU_LANG
+lang_file = DIR_MENU_LANG
 
 
 def update_conf(src):

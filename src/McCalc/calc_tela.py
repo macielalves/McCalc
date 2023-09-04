@@ -1,13 +1,15 @@
 from tkinter import (Tk, Button, Entry, Frame)
 import sysconfig
 import re
-from term_calc import McCalc
+from .term_calc import McCalc
 
 so = sysconfig.get_platform()
 print(f"Sistema operacional: \033[31m[{so}]\033[0m")
 
 
 class CalcGUI:
+    """
+    """
     tela = Tk()
     tela.title("Calculadora")
     tela.geometry("320x465")  # 320x455 é o padrão
@@ -55,6 +57,11 @@ class CalcGUI:
 
     def start(self):
         self.tela.mainloop()
+        self.flag_state = True
+
+    def close(self):
+        self.flag_state = False
+        exit("Obrigado por testar o  McCalc senhor Ainstein!")
 
     def display(self) -> None:
         check_num = (self.tela.register(self.validate), '%P')
