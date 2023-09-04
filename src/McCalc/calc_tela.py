@@ -6,17 +6,6 @@ import re
 so = sysconfig.get_platform()
 print(f"Sistema operacional: \033[31m[{so}]\033[0m")
 
-if "log_calc.txt" not in os.listdir("./"):
-    with open("log_calc.txt", "a+") as log_file:
-        pass
-
-
-def clean():
-    if "linux" in so:
-        os.system("clear")
-    elif "win" in so:
-        os.system("cls")
-
 
 class CalcDesktop:
     tela = Tk()
@@ -33,7 +22,7 @@ class CalcDesktop:
     a_bt_sum_fg_color = "black"
     a_bt_sum_bg_color = "#c20b22"
     tela.configure(bg=bg)
-    data_entry = None
+    # data_entry = None
     digitos = None
     col1 = 0.01
     col2 = 0.26
@@ -52,9 +41,15 @@ class CalcDesktop:
     bt_size_w: int = 70
     bt_size_h: int = 50
     bt_border_width = 1.5
-    bt_font: str = "Hack"
+    bt_font: str = "consolas"
+    # Funcionais
+    flag_state = False
+    x = None
+    y = None
+    op = None
 
     def __init__(self) -> None:
+        self.data_entry = None
         self.display()
         self.botoes()
 
@@ -65,41 +60,18 @@ class CalcDesktop:
         check_num = (self.tela.register(self.validate), '%P')
 
         self.data_entry = Entry(self.tela, insertwidth=2, font=(self.bt_font, 30), justify="right", validate="key",
-                                validatecommand=check_num, )
+                                validatecommand=check_num)
         self.data_entry.place(x=10, y=10, width=300, height=100)
-        self.data_entry.bind("<Return>", self.hello)
+        self.data_entry.bind("<Return>", self.result)
 
     def botoes(self) -> None:
         # frame para espaço para os botões numéricos
         self.digitos = Frame(self.tela, bg=self.bg)
         self.digitos.place(relx=0.02, rely=0.25, relwidth=0.96, relheight=0.76)
 
-        cls = Button(self.digitos, text="«", font=(self.bt_font, self.bt_font_size), borderwidth=self.bt_border_width,
-                     command=self.backscape, bg=self.bt_bg_color, activebackground=self.a_bt_bg_color,
-                     activeforeground=self.a_bt_fg_color, highlightbackground=self.h_bt_color)
-        # width=self.bt_size_w,
-        #                      height=f"{self.bt_size_h}",
-        cls.place(relx=self.col1, rely=self.row1, width=self.bt_size_w, height=self.bt_size_h)
-
-        exp = Button(self.digitos, text="x²", font=(self.bt_font, self.bt_font_size),
-                     borderwidth=self.bt_border_width, bg=self.bt_bg_color, activebackground=self.a_bt_bg_color,
-                     activeforeground=self.a_bt_fg_color, highlightbackground=self.h_bt_color)
-        exp.place(relx=self.col1, rely=self.row2, width=self.bt_size_w, height=self.bt_size_h)
-
-        raiz = Button(self.digitos, text="√", font=(self.bt_font, self.bt_font_size),
-                      borderwidth=self.bt_border_width, bg=self.bt_bg_color, activebackground=self.a_bt_bg_color,
-                      activeforeground=self.a_bt_fg_color, highlightbackground=self.h_bt_color)
-        raiz.place(relx=self.col2, rely=self.row2, width=self.bt_size_w, height=self.bt_size_h)
-
-        limpar = Button(self.digitos, text="C", font=(self.bt_font, self.bt_font_size),
-                        borderwidth=self.bt_border_width,
-                        command=self.clean_all, bg=self.bt_bg_color, activebackground=self.a_bt_bg_color,
-                        activeforeground=self.a_bt_fg_color, highlightbackground=self.h_bt_color)
-        limpar.place(relx=self.col4, rely=self.row1, width=self.bt_size_w, height=self.bt_size_h)
-
         # ############################ Teclado numérico ##############################################
         n1 = Button(self.digitos, text="1", font=(self.bt_font, self.bt_font_size), borderwidth=self.bt_border_width,
-                    command=lambda: self.data_entry.insert(0, "1"), bg=self.bt_bg_color,
+                    command=lambda: self.data_entry.insert("end", "1"), bg=self.bt_bg_color,
                     activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
                     highlightbackground=self.h_bt_color)
         n1.place(relx=self.col1, rely=self.row3, width=self.bt_size_w, height=self.bt_size_h)
@@ -160,13 +132,14 @@ class CalcDesktop:
         n0.place(relx=self.col2, rely=self.row6, width=self.bt_size_w, height=self.bt_size_h)
         ###############################################################################################
 
-        dot = Button(self.digitos, text=".", font=(self.bt_font, self.bt_font_size),
-                     command=self.inserir_ponto, bg=self.bt_bg_color, activebackground=self.a_bt_bg_color,
+        dot = Button(self.digitos, text=".", font=(self.bt_font, self.bt_font_size), command=self.insert_dot,
+                     bg=self.bt_bg_color, activebackground=self.a_bt_bg_color,
                      activeforeground=self.a_bt_fg_color, highlightbackground=self.h_bt_color)
         dot.place(relx=self.col1, rely=self.row6, width=self.bt_size_w, height=self.bt_size_h)
 
         but = Button(self.digitos, text="☠", font=(self.bt_font, self.bt_font_size),
-                     command=lambda: print("botão sem utilidade"), bg=self.bt_bg_color,
+                     command=lambda: print("botão sem utilidade"),
+                     bg=self.bt_bg_color,
                      activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
                      highlightbackground=self.h_bt_color)
         but.place(relx=self.col2, rely=self.row1, width=self.bt_size_w, height=self.bt_size_h)
@@ -178,13 +151,14 @@ class CalcDesktop:
         but1.place(relx=self.col3, rely=self.row1, width=self.bt_size_w, height=self.bt_size_h)
 
         soma = Button(self.digitos, text="+", font=(self.bt_font, self.bt_font_size), bg=self.bt_sum_bg_color,
-                      activebackground=self.a_bt_sum_bg_color, activeforeground=self.a_bt_sum_fg_color)
+                      activebackground=self.a_bt_sum_bg_color, activeforeground=self.a_bt_sum_fg_color,
+                      command=lambda: print("Soma"))
         soma.place(relx=self.col4, rely=self.row5, width=self.bt_size_w, height=self.bt_size_h * 2.11)
 
-        igual = Button(self.digitos, text="=", font=(self.bt_font, self.bt_font_size), bg=self.bt_bg_color,
-                       activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                       highlightbackground=self.h_bt_color)
-        igual.place(relx=self.col3, rely=self.row6, width=self.bt_size_w, height=self.bt_size_h)
+        sub = Button(self.digitos, text="-", font=(self.bt_font, self.bt_font_size), bg=self.bt_bg_color,
+                     activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
+                     highlightbackground=self.h_bt_color)
+        sub.place(relx=self.col4, rely=self.row4, width=self.bt_size_w, height=self.bt_size_h)
 
         div = Button(self.digitos, text="÷", font=(self.bt_font, self.bt_font_size), bg=self.bt_bg_color,
                      activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
@@ -201,17 +175,35 @@ class CalcDesktop:
                       highlightbackground=self.h_bt_color)
         porc.place(relx=self.col3, rely=self.row2, width=self.bt_size_w, height=self.bt_size_h)
 
-        sub = Button(self.digitos, text="-", font=(self.bt_font, self.bt_font_size), bg=self.bt_bg_color,
-                     activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                     highlightbackground=self.h_bt_color)
-        sub.place(relx=self.col4, rely=self.row4, width=self.bt_size_w, height=self.bt_size_h)
+        igual = Button(self.digitos, text="=", font=(self.bt_font, self.bt_font_size), bg=self.bt_bg_color,
+                       activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
+                       highlightbackground=self.h_bt_color)
+        igual.place(relx=self.col3, rely=self.row6, width=self.bt_size_w, height=self.bt_size_h)
+
+        bk = Button(self.digitos, text="«", font=(self.bt_font, self.bt_font_size), borderwidth=self.bt_border_width,
+                    command=self.backspace, bg=self.bt_bg_color, activebackground=self.a_bt_bg_color,
+                    activeforeground=self.a_bt_fg_color, highlightbackground=self.h_bt_color)
+        bk.place(relx=self.col1, rely=self.row1, width=self.bt_size_w, height=self.bt_size_h)
+
+        exp = Button(self.digitos, text="x²", font=(self.bt_font, self.bt_font_size),
+                     borderwidth=self.bt_border_width, bg=self.bt_bg_color, activebackground=self.a_bt_bg_color,
+                     activeforeground=self.a_bt_fg_color, highlightbackground=self.h_bt_color)
+        exp.place(relx=self.col1, rely=self.row2, width=self.bt_size_w, height=self.bt_size_h)
+
+        sqrt = Button(self.digitos, text="√", font=(self.bt_font, self.bt_font_size),
+                      borderwidth=self.bt_border_width, bg=self.bt_bg_color, activebackground=self.a_bt_bg_color,
+                      activeforeground=self.a_bt_fg_color, highlightbackground=self.h_bt_color, command=self.sqrt)
+        sqrt.place(relx=self.col2, rely=self.row2, width=self.bt_size_w, height=self.bt_size_h)
+
+        clean = Button(self.digitos, text="C", font=(self.bt_font, self.bt_font_size),
+                       borderwidth=self.bt_border_width,
+                       command=self.clean_all, bg=self.bt_bg_color, activebackground=self.a_bt_bg_color,
+                       activeforeground=self.a_bt_fg_color, highlightbackground=self.h_bt_color)
+        clean.place(relx=self.col4, rely=self.row1, width=self.bt_size_w, height=self.bt_size_h)
         ...
 
-    def clean_display(self):
-        self.data_entry.delete(len(self.get_display()))
-
-    def backscape(self):
-        self.data_entry.delete("end", "end")
+    def backspace(self):
+        self.data_entry.delete("-end")
 
     def hello(self, *args):
         txt = f"\033[32m[{self.data_entry.get():>20}]\033[0m"
@@ -221,10 +213,10 @@ class CalcDesktop:
     def get_display(self):
         return self.data_entry.get()
 
-    def erro_sintaxe(self):
+    def sintax_error(self):
         ...
 
-    def inserir_ponto(self):
+    def insert_dot(self):
         if self.get_display() != "" and "." not in self.get_display():
             self.data_entry.insert("end", ".")
 
@@ -232,14 +224,28 @@ class CalcDesktop:
         self.data_entry.delete(0, "end")
         ...
 
-    def validate(self, newval):
-        self.hello()
+    @staticmethod
+    def validate(newval):
         return re.match('^[0-9ex.pi]*$', newval) is not None
 
     def check_void(self):
         if self.get_display() == "":
             self.data_entry.insert("end", "0")
 
+    def result(self):
+        pass
 
-t1 = CalcDesktop()
-t1.start()
+    def sum(self):
+        return self.x + self.y
+
+    def sqrt(self):
+        aux = self.data_entry.get()
+        a = float(aux)
+        calc.PyCalc.sqrt(a)
+        self.clean_all()
+        self.data_entry.insert("end", f"{b}")
+
+
+if __name__ == "__main__":
+    t1 = CalcDesktop()
+    t1.start()

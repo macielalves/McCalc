@@ -1,2 +1,5 @@
-/testes/
-/log_calc.txt
+/.idea
+/src/McCalc/log_calc.txt
+/tests/
+/docs/
+/pyproject.toml

@@ -5,6 +5,7 @@ import platform
 
 DIR_MENU_LANG = "lang/pt_br.json"
 
+
 SO = sysconfig.get_platform()
 
 try:
@@ -44,7 +45,7 @@ LOGO = '''\033[1m\033[31m _ ___   __    __   ___     ____    _        ____
 
 MAIN_MENU = f'''
 [+] {m_sum}\t[/] {m_div}\t[C] {m_clean}
-[-] {m_sub}\t[r] {m_sqrt}\t[**] {m_exp}      
+[-] {m_sub}\t[s] {m_sqrt}\t[**] {m_exp}      
 [*] {m_mult}\t[%] {m_percent}\t[q] {m_exit}  
 '''
 
@@ -94,8 +95,6 @@ class PyCalc:
     def _print_result(self):
         if self.check_none():
             print(f'{self.x} {self.op} {self.y} = {self.result}')
-        elif self.op == "%":
-            print(f"{self.x}/100 = {self.result}")
 
     def check_none(self):
         return self.x is not None and self.y is not None and self.op is not None
@@ -103,7 +102,6 @@ class PyCalc:
     def main_menu(self):
         while self.flag_state:
             print(MAIN_MENU)
-            print(self._print_result())
             op_entry = (input("PyCalc:> ").strip().upper())  # por que o input ta no parênteses?
 
             if have_num(op_entry):
@@ -112,6 +110,7 @@ class PyCalc:
                 else:
                     self.y = float(op_entry)
             else:
+                op_entry = op_entry[:2]
                 match op_entry:
                     case '+':
                         self.op = "+"
@@ -127,8 +126,8 @@ class PyCalc:
                         self.op = "**"
                     case '%':
                         self.op = "%"
-                    case 'R':
-                        self.op = "r"
+                    case 'S':
+                        self.op = "s"
                     case 'C':
                         self.clean()
                     case 'Q':
@@ -167,39 +166,47 @@ class PyCalc:
                 case '^':
                     self.result = self.exp(self.x, self.y)
                     self._print_result()
-                case '%':
-                    self.result = self.percent(self.x)
-                    self._print_result()
-                case 'R':
-                    self.result = self.sqrt(self.x)
-                    self._print_result()
-
             self.x = self.result
             self.y = None
             self.op = None
+        elif self.x is not None and self.op is not None:
+            if self.op == "%":
+                self.result = self.percent(self.x)
+                print(f"{self.x}/100 = {self.result}")
+            elif self.op == "s":
+                self.result = self.sqrt(self.x)
+                print(f"sqrt({self.x}) = {self.result}")
 
-    # ###### Métodos operacionais #######
-    def sum(self, x, y):
+    # ###### Métodos staticos da classe #######
+    @staticmethod
+    def sum(x, y):
         return x + y
 
-    def sub(self, x, y):
+    @staticmethod
+    def sub(x, y):
         return x - y
 
-    def mult(self, x, y):
+    @staticmethod
+    def mult(x, y):
         return x * y
 
-    def div(self, x, y):
+    @staticmethod
+    def div(x, y):
         return x / y
 
-    def exp(self, x, y):
+    @staticmethod
+    def exp(x, y):
         return x ** y
 
-    def sqrt(self, x):
+    @staticmethod
+    def sqrt(x):
         return x ** (1 / 2)
 
-    def percent(self, x):
+    @staticmethod
+    def percent(x):
         return x / 100
 
 
-calc1 = PyCalc()
-calc1.on()
+if __name__ == "__main__":
+    calc1 = PyCalc()
+    calc1.on()
