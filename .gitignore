@@ -1,5 +1,7 @@
-/.idea
 /src/McCalc/log_calc.txt
-/tests/
-/docs/
+/src/McCalc.egg-info/*
 /pyproject.toml
+/tests/*
+/.idea
+/docs/*
+/dist/*
