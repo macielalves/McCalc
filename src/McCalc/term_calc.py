@@ -1,3 +1,6 @@
+"""
+Em testes...
+"""
 import json
 import os
 import sysconfig
@@ -68,7 +71,7 @@ def have_num(string):
     return any(char.isdigit() for char in string)
 
 
-class PyCalc:
+class McCalc:
     """
     calculadora
     """
@@ -205,8 +208,3 @@ class PyCalc:
     @staticmethod
     def percent(x):
         return x / 100
-
-
-if __name__ == "__main__":
-    calc1 = PyCalc()
-    calc1.on()

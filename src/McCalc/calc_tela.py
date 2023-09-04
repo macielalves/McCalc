@@ -244,8 +244,3 @@ class CalcDesktop:
         calc.PyCalc.sqrt(a)
         self.clean_all()
         self.data_entry.insert("end", f"{b}")
-
-
-if __name__ == "__main__":
-    t1 = CalcDesktop()
-    t1.start()
