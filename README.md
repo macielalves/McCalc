@@ -26,11 +26,6 @@ calc1 = McCalc.McCalc()
 calc1.on()
 ```
 
-Para usar via GUI use o seguinte trcho de código:
-```py
-from McCalc import calc_tela
-
-```
 
 
 ⚠ Pode haver bugs, relate em [issues](https://github.com/macielalves/McCalc/issues/new/choose)

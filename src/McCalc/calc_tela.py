@@ -1,13 +1,13 @@
 from tkinter import (Tk, Button, Entry, Frame)
-import os
 import sysconfig
 import re
+from term_calc import McCalc
 
 so = sysconfig.get_platform()
 print(f"Sistema operacional: \033[31m[{so}]\033[0m")
 
 
-class CalcDesktop:
+class CalcGUI:
     tela = Tk()
     tela.title("Calculadora")
     tela.geometry("320x465")  # 320x455 é o padrão
@@ -241,6 +241,6 @@ class CalcDesktop:
     def sqrt(self):
         aux = self.data_entry.get()
         a = float(aux)
-        calc.PyCalc.sqrt(a)
+        b = McCalc.sqrt(a)
         self.clean_all()
         self.data_entry.insert("end", f"{b}")
