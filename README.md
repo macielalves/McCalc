@@ -38,4 +38,4 @@ test.execute()
 
 
 
-⚠ Pode haver bugs, relate em [issues](https://github.com/macielalves/McCalc/issues/new/choose)
+⚠ Pode haver bugs, relate em [issues](https://github.com/macielalves/McCalc/issues/1)
