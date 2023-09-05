@@ -1,4 +1,4 @@
-<div align="center"><img src="https://github.com/macielalves/McCalc/raw/main/src/McCalc/img/icon.png" /></div>
+<div align="center"><img src="https://github.com/macielalves/McCalc/blob/main/img/icon.png" /></div>
 
 ---
 # McCalc
