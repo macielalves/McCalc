@@ -1,63 +1,34 @@
-"""
-Em testes...
-"""
-import json
 import os
-import sysconfig
 import platform
 
-DIR_MENU_LANG = "lang/pt_br.json"
-
-
-SO = sysconfig.get_platform()
-
-try:
-    with open(DIR_MENU_LANG, "r", encoding="utf-8") as file_menu:
-        configs = json.load(file_menu)
-        # menu option
-        m_exit = configs["opcoes"]["m_exit"]
-        m_sum = configs["opcoes"]["m_sum"]
-        m_sub = configs["opcoes"]["m_sub"]
-        m_mult = configs["opcoes"]["m_mult"]
-        m_div = configs["opcoes"]["m_div"]
-        m_exp = configs["opcoes"]["m_exp"]
-        m_sqrt = configs["opcoes"]["m_sqrt"]
-        m_percent = configs["opcoes"]["m_percent"]
-        m_clean = configs["opcoes"]["m_clean"]
-        # label inputs
-        m_input = configs["inputs"]["m_input"]
-        in_x = configs["inputs"]["input_x"]
-        in_y = configs["inputs"]["input_y"]
-        # alerts
-        alert_on_quit = configs["alerts"]["a_quit"]
-        # configs
-        c_logo = configs["configs"]["logo"]
-except Exception as e:
-    print(e)
-    pass
-
-
-LOGO = '''\033[1m\033[31m _ ___   __    __   ___     ____    _        ____
-|   _ `\ \ \  / / / __ `\  / __ \  | |      / __ `\ 
-|  |_| |  \ \/ / | /  |_| | |  | | | |     | /  |_|
-|  ___,/   \  /  | |   _  | |__| | | |     | |   _
-| |        / /   | \__| | |  __  | | |____ | \__| |
-|_|       /_/     \____/  |_|  |_| |______| \____/
-\033[0m
+SO = platform.version()
+print(SO)
+__a = 1
+__b = 2
+__c = 3
+__d = 4
+__e = 5
+__f = 6
+LOGO = f'''\033[1m\033[31m
+\033[3{__a}m000      000\033[3{__b}m       \033[3{__c}m  000000 \033[3{__d}m        \033[3{__e}m 00    \033[3{__f}m
+\033[3{__a}m0000    0000\033[3{__b}m       \033[3{__c}m 000   00\033[3{__d}m        \033[3{__e}m 00    \033[3{__f}m 
+\033[3{__a}m00 00  00 00\033[3{__b}m  0000 \033[3{__c}m 00      \033[3{__d}m  00000 \033[3{__e}m 00    \033[3{__f}m  0000
+\033[3{__a}m00  0000  00\033[3{__b}m 00  00\033[3{__c}m 00      \033[3{__d}m      00\033[3{__e}m 00    \033[3{__f}m 00  00
+\033[3{__a}m00   00   00\033[3{__b}m 00    \033[3{__c}m 00      \033[3{__d}m  000000\033[3{__e}m 00    \033[3{__f}m 00
+\033[3{__a}m00        00\033[3{__b}m 00  00\033[3{__c}m 000   00\033[3{__d}m 00   00\033[3{__e}m 00    \033[3{__f}m 00  00
+\033[3{__a}m00        00\033[3{__b}m  0000 \033[3{__c}m  000000 \033[3{__d}m  00000 \033[3{__e}m 000000\033[3{__f}m  0000
+\033[38m*==================================================*\033[0m
 '''
-
-MAIN_MENU = f'''
-[+] {m_sum}\t[/] {m_div}\t[C] {m_clean}
-[-] {m_sub}\t[s] {m_sqrt}\t[**] {m_exp}      
-[*] {m_mult}\t[%] {m_percent}\t[q] {m_exit}  
-'''
-
 PI = 3.14159265358979323846264338327950288419716939937510
+MAIN_MENU = '''
+[+] Soma           [/] Divisão        [C] Limpar
+[-] Subtração      [s] Raiz Quadrada  [**] Exponencial      
+[*] Multiplicação  [%] Porcentagem    [q] Sair  
+'''
 
 
 def logo():
-    if c_logo:
-        print(LOGO, end="")
+    print(LOGO, end="")
 
 
 def term_clean():
@@ -82,30 +53,32 @@ class McCalc:
     result = None
 
     # botão igual retorna o valor entre os valores de entrada
-    def on(self):
+    def run(self):
+        """Inicializa o programa principal"""
         self.clean()
         self.flag_state = True
-        print("\033[1m\033[35m" + platform.system() + " " + platform.release(), platform.version(), platform.architecture(),
-              platform.processor(), sep=" | ", end="\033[0m\n")
         logo()
         self.main_menu()
         pass
 
-    def off(self):
+    def stop(self):
+        """Para a execução do programa"""
         self.flag_state = False
         pass
 
     def _print_result(self):
         if self.check_none():
-            print(f'{self.x} {self.op} {self.y} = {self.result}')
+            print(f'[{self.x} {self.op} {self.y}] =\033[32m {self.result} \033[0m')
 
     def check_none(self):
+        """Checa se foi inserido uma um valor para x, y e uma opção do do menu principal."""
         return self.x is not None and self.y is not None and self.op is not None
 
     def main_menu(self):
+        """Mostra um menu e uma entrada de prompts"""
         while self.flag_state:
             print(MAIN_MENU)
-            op_entry = (input("PyCalc:> ").strip().upper())  # por que o input ta no parênteses?
+            op_entry = (input("McCalc:> ").strip().upper())  # por que o input ta no parênteses?
 
             if have_num(op_entry):
                 if self.x is None and self.op is None:
@@ -135,11 +108,14 @@ class McCalc:
                         self.clean()
                     case 'Q':
                         self.clean()
-                        exit(code=f"\033[1m\033[34m{alert_on_quit}\033[0m")
+                        exit(code=f"\033[1m\033[34mObrigado por usar o McCalc!\033[0m")
 
             self.calc_result()
 
     def clean(self):
+        """
+        Limpa o terminal e reseta as variáveis par None
+        """
         self.result = None
         self.op = None
         self.x = None
@@ -169,16 +145,23 @@ class McCalc:
                 case '^':
                     self.result = self.exp(self.x, self.y)
                     self._print_result()
+
             self.x = self.result
             self.y = None
             self.op = None
+
         elif self.x is not None and self.op is not None:
             if self.op == "%":
                 self.result = self.percent(self.x)
-                print(f"{self.x}/100 = {self.result}")
+                print(f"{self.x}/100 = \033[32m {self.result} \033[0m")
+                self.op = None
             elif self.op == "s":
                 self.result = self.sqrt(self.x)
-                print(f"sqrt({self.x}) = {self.result}")
+                print(f"sqrt({self.x}) = \033[32m {self.result} \033[0m")
+                self.x = self.result
+                self.op = None
+            elif self.x is not None:
+                print(f"= \033[32m {self.x} \033[0m")
 
     # ###### Métodos staticos da classe #######
     @staticmethod

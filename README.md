@@ -1,4 +1,4 @@
-<div align="center"><img src="https://github.com/macielalves/McCalc/raw/main/src/McCalc/icon.png" /></div>
+<div align="center"><img src="https://github.com/macielalves/McCalc/raw/main/src/McCalc/img/icon.png" /></div>
 
 ---
 # McCalc
@@ -19,11 +19,21 @@ py.exe -m pip install McCalc
 Após instalar, é preciso criar um arquivo e passar as intruções de uso.
 
 Para usar via terminal:
-```py
-import McCalc
 
-calc1 = McCalc.McCalc()
-calc1.on()
+```py
+from McCalc import McCalc
+
+calc1 = McCalc()
+calc1.run()
+```
+
+Para usar no modo GUI, use o seguinte exemplo:
+```py
+# O modo interface usa bibliotecas tkinter
+from McCalc import CalcGUI
+
+test = CalcGUI()
+test.execute()
 ```
 
 

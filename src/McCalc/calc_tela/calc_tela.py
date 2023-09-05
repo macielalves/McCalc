@@ -1,7 +1,9 @@
+"""__version__ = 0.0.8, Primeira versão estabilizada"""
+
 from tkinter import (Tk, Button, Entry, Frame)
 import sysconfig
 import re
-from .term_calc import McCalc
+from McCalc import McCalc
 
 so = sysconfig.get_platform()
 print(f"Sistema operacional: \033[31m[{so}]\033[0m")
@@ -55,7 +57,7 @@ class CalcGUI:
         self.display()
         self.botoes()
 
-    def start(self):
+    def execute(self):
         self.tela.mainloop()
         self.flag_state = True
 

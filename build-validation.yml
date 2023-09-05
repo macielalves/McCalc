@@ -1,6 +1,0 @@
-name: build
-on:
-  push:
-    branches: [main]
-    paths:
-      - '**.py'
