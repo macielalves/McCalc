@@ -1,7 +1,10 @@
 /src/McCalc/log_calc.txt
 /src/McCalc.egg-info/*
+venv
+__pycahe__
 /pyproject.toml
 /tests/*
 /.idea
 /docs/*
 /dist/*
+.vscode

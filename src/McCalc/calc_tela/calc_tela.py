@@ -3,19 +3,14 @@
 from tkinter import (Tk, Button, Entry, Frame)
 import sysconfig
 import re
-from McCalc import McCalc
 
 so = sysconfig.get_platform()
 print(f"Sistema operacional: \033[31m[{so}]\033[0m")
 
 
-class CalcGUI:
+class CalcGUI(Tk):
     """
     """
-    tela = Tk()
-    tela.title("Calculadora")
-    tela.geometry("320x465")  # 320x455 é o padrão
-    tela.resizable(False, False)
     bg = "#ff8e42"
     bt_bg_color = "#ff6014"
     h_bt_color = "red"
@@ -25,7 +20,6 @@ class CalcGUI:
     bt_sum_bg_color = "#ff0c2d"
     a_bt_sum_fg_color = "black"
     a_bt_sum_bg_color = "#c20b22"
-    tela.configure(bg=bg)
     # data_entry = None
     digitos = None
     col1 = 0.01
@@ -53,29 +47,34 @@ class CalcGUI:
     op = None
 
     def __init__(self) -> None:
+        super().__init__()
+        self.title("Calculadora")
+        self.geometry("320x465")  # 320x455 é o padrão
+        self.resizable(False, False)
+        self.configure(bg=self.bg)
         self.data_entry = None
         self.display()
         self.botoes()
 
     def execute(self):
-        self.tela.mainloop()
         self.flag_state = True
+        self.mainloop()
 
     def close(self):
         self.flag_state = False
         exit("Obrigado por testar o  McCalc senhor Ainstein!")
 
     def display(self) -> None:
-        check_num = (self.tela.register(self.validate), '%P')
+        check_num = (self.register(self.validate), '%P')
 
-        self.data_entry = Entry(self.tela, insertwidth=2, font=(self.bt_font, 30), justify="right", validate="key",
+        self.data_entry = Entry(self, insertwidth=2, font=(self.bt_font, 30), justify="right", validate="key",
                                 validatecommand=check_num)
         self.data_entry.place(x=10, y=10, width=300, height=100)
         self.data_entry.bind("<Return>", self.result)
 
     def botoes(self) -> None:
         # frame para espaço para os botões numéricos
-        self.digitos = Frame(self.tela, bg=self.bg)
+        self.digitos = Frame(self, bg=self.bg)
         self.digitos.place(relx=0.02, rely=0.25, relwidth=0.96, relheight=0.76)
 
         # ############################ Teclado numérico ##############################################
@@ -212,7 +211,7 @@ class CalcGUI:
         ...
 
     def backspace(self):
-        self.data_entry.delete("-end")
+        self.data_entry.delete("end")
 
     def hello(self, *args):
         txt = f"\033[32m[{self.data_entry.get():>20}]\033[0m"
@@ -253,3 +252,7 @@ class CalcGUI:
         b = McCalc.sqrt(a)
         self.clean_all()
         self.data_entry.insert("end", f"{b}")
+
+
+teste = CalcGUI()
+teste.execute()
