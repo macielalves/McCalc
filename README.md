@@ -3,7 +3,7 @@
 ---
 # McCalc
 
-![PyPI - License](https://img.shields.io/pypi/l/McCalc) ![PyPI - Downloads](https://img.shields.io/pypi/dm/McCalc) ![PyPI - Version](https://img.shields.io/pypi/v/McCalc)
+![PyPI - License](https://img.shields.io/pypi/l/McCalc) ![PyPI - Version](https://img.shields.io/pypi/v/McCalc)
 
 Uma simples calculadora feita em python
 
