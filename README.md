@@ -41,4 +41,4 @@ test.execute()
 
 
 
-⚠ Pode haver bugs, relate em [issues](https://github.com/macielalves/McCalc/issues/1)
+⚠ Pode haver bugs, relate em [issues](https://github.com/macielalves/McCalc/issues/new)
