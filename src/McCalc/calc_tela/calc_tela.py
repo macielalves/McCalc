@@ -64,7 +64,7 @@ class CalcGUI(Tk):
         self.flag_state = False
         exit("Obrigado por testar o  McCalc senhor Ainstein!")
 
-    def display(self) -> None:
+    def display(self):
         check_num = (self.register(self.validate), '%P')
 
         self.data_entry = Entry(self, insertwidth=2, font=(self.bt_font, 30), justify="right", validate="key",
@@ -72,7 +72,7 @@ class CalcGUI(Tk):
         self.data_entry.place(x=10, y=10, width=300, height=100)
         self.data_entry.bind("<Return>", self.result)
 
-    def botoes(self) -> None:
+    def botoes(self):
         # frame para espaço para os botões numéricos
         self.digitos = Frame(self, bg=self.bg)
         self.digitos.place(relx=0.02, rely=0.25, relwidth=0.96, relheight=0.76)
@@ -216,7 +216,6 @@ class CalcGUI(Tk):
     def hello(self, *args):
         txt = f"\033[32m[{self.data_entry.get():>20}]\033[0m"
         print(txt)
-        pass
 
     def get_display(self):
         return self.data_entry.get()
