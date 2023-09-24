@@ -71,104 +71,85 @@ class CalcGUI(Tk):
         self.data_entry = Entry(self, insertwidth=2, font=(self.bt_font, 30), justify="right", validate="key",
                                 validatecommand=check_num)
         self.data_entry.place(x=10, y=10, width=300, height=100)
-        self.data_entry.bind("<Return>", self.result)
+        self.data_entry.bind("<Return>", self.result())
 
     def botoes(self):
         # frame para espaço para os botões numéricos
         self.digitos = Frame(self, bg=self.bg)
         self.digitos.place(relx=0.02, rely=0.25, relwidth=0.96, relheight=0.76)
+        format_btn = {
+            'font': (self.bt_font, self.bt_font_size),
+            'borderwidth': self.bt_border_width,
+            'activebackground': self.a_bt_bg_color,
+            'activeforeground': self.a_bt_fg_color,
+            'highlightbackground': self.h_bt_color,
+            'bg': self.bt_bg_color
+        }
 
         # ############################ Teclado numérico ##############################################
-        n1 = Button(self.digitos, text="1", font=(self.bt_font, self.bt_font_size), borderwidth=self.bt_border_width,
-                    command=lambda: self.data_entry.insert("end", "1"), bg=self.bt_bg_color,
-                    activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                    highlightbackground=self.h_bt_color)
+        n1 = Button(self.digitos, text="1", **format_btn,
+                    command=lambda: self.data_entry.insert("end", "1"))
         n1.place(relx=self.col1, rely=self.row3,
                  width=self.bt_size_w, height=self.bt_size_h)
 
-        n2 = Button(self.digitos, text="2", font=(self.bt_font, self.bt_font_size), borderwidth=self.bt_border_width,
-                    command=lambda: self.data_entry.insert("end", "2"), bg=self.bt_bg_color,
-                    activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                    highlightbackground=self.h_bt_color)
+        n2 = Button(self.digitos, text="2", **format_btn,
+                    command=lambda: self.data_entry.insert("end", "2"))
         n2.place(relx=self.col2, rely=self.row3,
                  width=self.bt_size_w, height=self.bt_size_h)
 
-        n3 = Button(self.digitos, text="3", font=(self.bt_font, self.bt_font_size), borderwidth=self.bt_border_width,
-                    command=lambda: self.data_entry.insert("end", "3"), bg=self.bt_bg_color,
-                    activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                    highlightbackground=self.h_bt_color)
+        n3 = Button(self.digitos, text="3", **format_btn,
+                    command=lambda: self.data_entry.insert("end", "3"))
         n3.place(relx=self.col3, rely=self.row3,
                  width=self.bt_size_w, height=self.bt_size_h)
 
-        n4 = Button(self.digitos, text="4", font=(self.bt_font, self.bt_font_size), borderwidth=self.bt_border_width,
-                    command=lambda: self.data_entry.insert("end", "4"), bg=self.bt_bg_color,
-                    activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                    highlightbackground=self.h_bt_color)
+        n4 = Button(self.digitos, text="4", **format_btn,
+                    command=lambda: self.data_entry.insert("end", "4"))
         n4.place(relx=self.col1, rely=self.row4,
                  width=self.bt_size_w, height=self.bt_size_h)
 
-        n5 = Button(self.digitos, text="5", font=(self.bt_font, self.bt_font_size), borderwidth=self.bt_border_width,
-                    command=lambda: self.data_entry.insert("end", "5"), bg=self.bt_bg_color,
-                    activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                    highlightbackground=self.h_bt_color)
+        n5 = Button(self.digitos, text="5", **format_btn,
+                    command=lambda: self.data_entry.insert("end", "5"))
         n5.place(relx=self.col2, rely=self.row4,
                  width=self.bt_size_w, height=self.bt_size_h)
 
-        n6 = Button(self.digitos, text="6", font=(self.bt_font, self.bt_font_size), borderwidth=self.bt_border_width,
-                    command=lambda: self.data_entry.insert("end", "6"), bg=self.bt_bg_color,
-                    activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                    highlightbackground=self.h_bt_color)
+        n6 = Button(self.digitos, text="6", **format_btn,
+                    command=lambda: self.data_entry.insert("end", "6"))
         n6.place(relx=self.col3, rely=self.row4,
                  width=self.bt_size_w, height=self.bt_size_h)
 
-        n7 = Button(self.digitos, text="7", font=(self.bt_font, self.bt_font_size), borderwidth=self.bt_border_width,
-                    command=lambda: self.data_entry.insert("end", "7"), bg=self.bt_bg_color,
-                    activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                    highlightbackground=self.h_bt_color)
+        n7 = Button(self.digitos, text="7", **format_btn,
+                    command=lambda: self.data_entry.insert("end", "7"))
         n7.place(relx=self.col1, rely=self.row5,
                  width=self.bt_size_w, height=self.bt_size_h)
 
-        n8 = Button(self.digitos, text="8", font=(self.bt_font, self.bt_font_size), borderwidth=self.bt_border_width,
-                    command=lambda: self.data_entry.insert("end", "8"), bg=self.bt_bg_color,
-                    activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                    highlightbackground=self.h_bt_color)
+        n8 = Button(self.digitos, text="8", **format_btn,
+                    command=lambda: self.data_entry.insert("end", "8"))
         n8.place(relx=self.col2, rely=self.row5,
                  width=self.bt_size_w, height=self.bt_size_h)
 
-        n9 = Button(self.digitos, text="9", font=(self.bt_font, self.bt_font_size), borderwidth=self.bt_border_width,
-                    command=lambda: self.data_entry.insert("end", "9"), bg=self.bt_bg_color,
-                    activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                    highlightbackground=self.h_bt_color)
+        n9 = Button(self.digitos, text="9", **format_btn,
+                    command=lambda: self.data_entry.insert("end", "9"))
         n9.place(relx=self.col3, rely=self.row5,
                  width=self.bt_size_w, height=self.bt_size_h)
 
-        n0 = Button(self.digitos, text="0", font=(self.bt_font, self.bt_font_size),
-                    borderwidth=self.bt_border_width,
-                    command=lambda: self.data_entry.insert("end", "0"), bg=self.bt_bg_color,
-                    activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                    highlightbackground=self.h_bt_color)
+        n0 = Button(self.digitos, text="0", **format_btn,
+                    command=lambda: self.data_entry.insert("end", "0"))
         n0.place(relx=self.col2, rely=self.row6,
                  width=self.bt_size_w, height=self.bt_size_h)
         ###############################################################################################
 
-        dot = Button(self.digitos, text=".", font=(self.bt_font, self.bt_font_size), command=self.insert_dot,
-                     bg=self.bt_bg_color, activebackground=self.a_bt_bg_color,
-                     activeforeground=self.a_bt_fg_color, highlightbackground=self.h_bt_color)
+        dot = Button(self.digitos, text=".", **
+                     format_btn, command=self.insert_dot)
         dot.place(relx=self.col1, rely=self.row6,
                   width=self.bt_size_w, height=self.bt_size_h)
 
-        but = Button(self.digitos, text="☠", font=(self.bt_font, self.bt_font_size),
-                     command=lambda: print("botão sem utilidade"),
-                     bg=self.bt_bg_color,
-                     activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                     highlightbackground=self.h_bt_color)
+        but = Button(self.digitos, text="☠", **format_btn,
+                     command=lambda: print("botão sem utilidade"))
         but.place(relx=self.col2, rely=self.row1,
                   width=self.bt_size_w, height=self.bt_size_h)
 
-        but1 = Button(self.digitos, text="☠", font=(self.bt_font, self.bt_font_size),
-                      command=lambda: print("botão sem utilidade"), bg=self.bt_bg_color,
-                      activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                      highlightbackground=self.h_bt_color)
+        but1 = Button(self.digitos, text="☠", **format_btn,
+                      command=lambda: print("botão sem utilidade"))
         but1.place(relx=self.col3, rely=self.row1,
                    width=self.bt_size_w, height=self.bt_size_h)
 
@@ -178,58 +159,41 @@ class CalcGUI(Tk):
         soma.place(relx=self.col4, rely=self.row5,
                    width=self.bt_size_w, height=self.bt_size_h * 2.11)
 
-        sub = Button(self.digitos, text="-", font=(self.bt_font, self.bt_font_size), bg=self.bt_bg_color,
-                     activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                     highlightbackground=self.h_bt_color)
+        sub = Button(self.digitos, text="-", **format_btn)
         sub.place(relx=self.col4, rely=self.row4,
                   width=self.bt_size_w, height=self.bt_size_h)
 
-        div = Button(self.digitos, text="÷", font=(self.bt_font, self.bt_font_size), bg=self.bt_bg_color,
-                     activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                     highlightbackground=self.h_bt_color)
+        div = Button(self.digitos, text="÷", **format_btn)
         div.place(relx=self.col4, rely=self.row2,
                   width=self.bt_size_w, height=self.bt_size_h)
 
-        mult = Button(self.digitos, text="×", font=(self.bt_font, self.bt_font_size), bg=self.bt_bg_color,
-                      activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                      highlightbackground=self.h_bt_color)
+        mult = Button(self.digitos, text="×", **format_btn)
         mult.place(relx=self.col4, rely=self.row3,
                    width=self.bt_size_w, height=self.bt_size_h)
 
-        porc = Button(self.digitos, text="﹪", font=(self.bt_font, self.bt_font_size), bg=self.bt_bg_color,
-                      activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                      highlightbackground=self.h_bt_color)
+        porc = Button(self.digitos, text="﹪", **format_btn)
         porc.place(relx=self.col3, rely=self.row2,
                    width=self.bt_size_w, height=self.bt_size_h)
 
-        igual = Button(self.digitos, text="=", font=(self.bt_font, self.bt_font_size), bg=self.bt_bg_color,
-                       activebackground=self.a_bt_bg_color, activeforeground=self.a_bt_fg_color,
-                       highlightbackground=self.h_bt_color)
+        igual = Button(self.digitos, text="=", **format_btn)
         igual.place(relx=self.col3, rely=self.row6,
                     width=self.bt_size_w, height=self.bt_size_h)
 
-        bk = Button(self.digitos, text="«", font=(self.bt_font, self.bt_font_size), borderwidth=self.bt_border_width,
-                    command=self.backspace, bg=self.bt_bg_color, activebackground=self.a_bt_bg_color,
-                    activeforeground=self.a_bt_fg_color, highlightbackground=self.h_bt_color)
+        bk = Button(self.digitos, text="«", **format_btn,
+                    command=self.backspace)
         bk.place(relx=self.col1, rely=self.row1,
                  width=self.bt_size_w, height=self.bt_size_h)
 
-        exp = Button(self.digitos, text="x²", font=(self.bt_font, self.bt_font_size),
-                     borderwidth=self.bt_border_width, bg=self.bt_bg_color, activebackground=self.a_bt_bg_color,
-                     activeforeground=self.a_bt_fg_color, highlightbackground=self.h_bt_color)
+        exp = Button(self.digitos, text="x²", **format_btn)
         exp.place(relx=self.col1, rely=self.row2,
                   width=self.bt_size_w, height=self.bt_size_h)
 
-        sqrt = Button(self.digitos, text="√", font=(self.bt_font, self.bt_font_size),
-                      borderwidth=self.bt_border_width, bg=self.bt_bg_color, activebackground=self.a_bt_bg_color,
-                      activeforeground=self.a_bt_fg_color, highlightbackground=self.h_bt_color, command=self.sqrt)
+        sqrt = Button(self.digitos, text="√", **format_btn, command=self.sqrt)
         sqrt.place(relx=self.col2, rely=self.row2,
                    width=self.bt_size_w, height=self.bt_size_h)
 
-        clean = Button(self.digitos, text="C", font=(self.bt_font, self.bt_font_size),
-                       borderwidth=self.bt_border_width,
-                       command=self.clean_all, bg=self.bt_bg_color, activebackground=self.a_bt_bg_color,
-                       activeforeground=self.a_bt_fg_color, highlightbackground=self.h_bt_color)
+        clean = Button(self.digitos, text="C", **format_btn,
+                       command=self.clean_all)
         clean.place(relx=self.col4, rely=self.row1,
                     width=self.bt_size_w, height=self.bt_size_h)
         ...
