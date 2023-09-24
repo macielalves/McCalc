@@ -2,6 +2,7 @@
 /src/McCalc.egg-info/*
 venv
 __pycahe__
+*__pycahe__
 /pyproject.toml
 /tests/*
 /.idea
