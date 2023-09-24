@@ -61,6 +61,10 @@ class CalcGUI(Tk):
         self.flag_state = True
         self.mainloop()
 
+    def mainloop(self, n=0):
+        self.flag_state = True
+        self.tk.mainloop(n)
+
     def close(self):
         self.flag_state = False
         exit("Obrigado por testar o  McCalc senhor Ainstein!")
